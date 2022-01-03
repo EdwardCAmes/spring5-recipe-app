@@ -20,11 +20,20 @@ public class Recipe {
     @Lob // BLOB in db (Binary Large OBject field)
     private Byte[] image;
 
+    @Enumerated(value = EnumType.STRING)  // Overrides default EnumType.ORDINAL --> 1-N,  if added types would mess up previous entries
+    private Difficulty difficulty;
+
     @OneToOne(cascade = CascadeType.ALL)  // Makes this the 'owner'
     private Notes notes;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")  // Makes this the 'owner'
     private Set<Ingredient> ingredients;
+
+    @ManyToMany
+    @JoinTable(name="recipe_category", // stops making 2 tables 'recipe_categories' and 'category_recipes'.
+            joinColumns = @JoinColumn(name="recipe_id"),  // define the column names in the table
+            inverseJoinColumns = @JoinColumn(name="category_id"))
+    private Set<Category> categories;
 
     public Long getId() {
         return id;
@@ -98,6 +107,14 @@ public class Recipe {
         this.image = image;
     }
 
+    public Difficulty getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(Difficulty difficulty) {
+        this.difficulty = difficulty;
+    }
+
     public Notes getNotes() {
         return notes;
     }
@@ -112,5 +129,13 @@ public class Recipe {
 
     public void setIngredients(Set<Ingredient> ingredients) {
         this.ingredients = ingredients;
+    }
+
+    public Set<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories = categories;
     }
 }

@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 public class Ingredient {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // use the db's generated auto generated id upon persistence
     private Long id;
 
     private String description;
