@@ -4,14 +4,16 @@ import guru.springframework.domain.*;
 import guru.springframework.repositories.CategoryRepository;
 import guru.springframework.repositories.RecipeRepository;
 import guru.springframework.repositories.UnitOfMeasureRepository;
-import org.springframework.boot.CommandLineRunner;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.*;
 
+@Slf4j
 @Component
 public class BootStrapData implements ApplicationListener<ContextRefreshedEvent> {
 //    public class BootStrapData implements CommandLineRunner {
@@ -27,6 +29,7 @@ public class BootStrapData implements ApplicationListener<ContextRefreshedEvent>
     }
 
     @Override
+    @Transactional
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         recipeRepository.saveAll(getRecipes());
     }
@@ -34,6 +37,7 @@ public class BootStrapData implements ApplicationListener<ContextRefreshedEvent>
     private List<Recipe> getRecipes() {
         List<Recipe> recipes = new ArrayList<>();
 
+        log.debug("Adding ingredients");
         Optional<UnitOfMeasure> eachOptional = unitOfMeasureRepository.findByDescription("Each");
         Optional<UnitOfMeasure> tableSpoonOptional = unitOfMeasureRepository.findByDescription("Tablespoon");
         Optional<UnitOfMeasure> teaSpoonOptional = unitOfMeasureRepository.findByDescription("Teaspoon");
@@ -82,6 +86,7 @@ public class BootStrapData implements ApplicationListener<ContextRefreshedEvent>
                 "on buy it online. (If you can't find ancho chili powder, you replace the ancho chili, the oregano, " +
                 "and the cumin with 2 1/2 tablespoons regular chili powder, though the flavor won't be quite the same.)");
         spicyGrilledChicken.setNotes(chickenNotes);
+        log.debug("added Chicken recipe");
 
         spicyGrilledChicken.addIngredient(new Ingredient("oregano", new BigDecimal(1.0), teaSpoonUom));
         spicyGrilledChicken.addIngredient(new Ingredient("cumin", new BigDecimal(1.0), teaSpoonUom));
@@ -137,6 +142,7 @@ public class BootStrapData implements ApplicationListener<ContextRefreshedEvent>
         guacamole.addIngredient(new Ingredient("black pepper", new BigDecimal(1), dashUom));
 
         recipes.add(guacamole);
+        log.debug("Added guacamole recipe");
 
         return recipes;
     }
