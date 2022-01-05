@@ -1,6 +1,7 @@
 package guru.springframework.domain;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -15,6 +16,8 @@ public class Recipe {
     private Integer servings;
     private String source;
     private String url;
+
+    @Lob
     private String directions;
 
     @Lob // BLOB in db (Binary Large OBject field)
@@ -27,13 +30,13 @@ public class Recipe {
     private Notes notes;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")  // Makes this the 'owner'
-    private Set<Ingredient> ingredients;
+    private Set<Ingredient> ingredients = new HashSet<>();
 
     @ManyToMany
     @JoinTable(name="recipe_category", // stops making 2 tables 'recipe_categories' and 'category_recipes'.
             joinColumns = @JoinColumn(name="recipe_id"),  // define the column names in the table
             inverseJoinColumns = @JoinColumn(name="category_id"))
-    private Set<Category> categories;
+    private Set<Category> categories = new HashSet<>();
 
     public Long getId() {
         return id;
