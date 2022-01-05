@@ -81,17 +81,16 @@ public class BootStrapData implements ApplicationListener<ContextRefreshedEvent>
         chickenNotes.setRecipeNotes("Look for ancho chile powder with the Mexican ingredients at your grocery store, " +
                 "on buy it online. (If you can't find ancho chili powder, you replace the ancho chili, the oregano, " +
                 "and the cumin with 2 1/2 tablespoons regular chili powder, though the flavor won't be quite the same.)");
-        chickenNotes.setRecipe(spicyGrilledChicken);
         spicyGrilledChicken.setNotes(chickenNotes);
 
-        spicyGrilledChicken.getIngredients().add(new Ingredient("oregano", new BigDecimal(1.0), teaSpoonUom, spicyGrilledChicken));
-        spicyGrilledChicken.getIngredients().add(new Ingredient("cumin", new BigDecimal(1.0), teaSpoonUom, spicyGrilledChicken));
-        spicyGrilledChicken.getIngredients().add(new Ingredient("sugar", new BigDecimal(1.0), teaSpoonUom, spicyGrilledChicken));
-        spicyGrilledChicken.getIngredients().add(new Ingredient("salt", new BigDecimal(0.5), teaSpoonUom, spicyGrilledChicken));
-        spicyGrilledChicken.getIngredients().add(new Ingredient("grated orange zest", new BigDecimal(1), tableSpoonUom, spicyGrilledChicken));
-        spicyGrilledChicken.getIngredients().add(new Ingredient("olive oil", new BigDecimal(2), tableSpoonUom, spicyGrilledChicken));
-        spicyGrilledChicken.getIngredients().add(new Ingredient("garlic", new BigDecimal(2), eachUom, spicyGrilledChicken));
-        spicyGrilledChicken.getIngredients().add(new Ingredient("sour cream", new BigDecimal(0.5), cupsom, spicyGrilledChicken));
+        spicyGrilledChicken.addIngredient(new Ingredient("oregano", new BigDecimal(1.0), teaSpoonUom));
+        spicyGrilledChicken.addIngredient(new Ingredient("cumin", new BigDecimal(1.0), teaSpoonUom));
+        spicyGrilledChicken.addIngredient(new Ingredient("sugar", new BigDecimal(1.0), teaSpoonUom));
+        spicyGrilledChicken.addIngredient(new Ingredient("salt", new BigDecimal(0.5), teaSpoonUom));
+        spicyGrilledChicken.addIngredient(new Ingredient("grated orange zest", new BigDecimal(1), tableSpoonUom));
+        spicyGrilledChicken.addIngredient(new Ingredient("olive oil", new BigDecimal(2), tableSpoonUom));
+        spicyGrilledChicken.addIngredient(new Ingredient("garlic", new BigDecimal(2), eachUom));
+        spicyGrilledChicken.addIngredient(new Ingredient("sour cream", new BigDecimal(0.5), cupsom));
 
         spicyGrilledChicken.getCategories().add(mexicanCategory);
         spicyGrilledChicken.getCategories().add(americanCategory);
@@ -131,12 +130,11 @@ public class BootStrapData implements ApplicationListener<ContextRefreshedEvent>
                 "Note: Chilling tomatoes hurts their flavor. So, if you want to add chopped tomato to your guacamole, add it just before serving.");
         Notes guacamoleNotes = new Notes();
         guacamoleNotes.setRecipeNotes("Be careful handling chilis! If using, it's best to wear food-safe gloves. If no gloves are available, wash your hands thoroughly after handling, and do not touch your eyes or the area near your eyes for several hours afterwards.");
-        guacamoleNotes.setRecipe(guacamole);
         guacamole.setNotes(guacamoleNotes);
 
-        guacamole.getIngredients().add(new Ingredient("avocados", new BigDecimal(1), eachUom, guacamole));
-        guacamole.getIngredients().add(new Ingredient("salt", new BigDecimal(0.25), teaSpoonUom, guacamole));
-        guacamole.getIngredients().add(new Ingredient("black pepper", new BigDecimal(1), dashUom, guacamole));
+        guacamole.addIngredient(new Ingredient("avocados", new BigDecimal(1), eachUom));
+        guacamole.addIngredient(new Ingredient("salt", new BigDecimal(0.25), teaSpoonUom));
+        guacamole.addIngredient(new Ingredient("black pepper", new BigDecimal(1), dashUom));
 
         recipes.add(guacamole);
 
