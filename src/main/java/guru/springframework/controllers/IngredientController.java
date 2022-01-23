@@ -24,24 +24,21 @@ public class IngredientController {
         this.oumService = oumService;
     }
 
-    @GetMapping
-    @RequestMapping("/recipe/{idStr}/ingredients")
+    @GetMapping("/recipe/{idStr}/ingredients")
     public String listIngredients(@PathVariable String idStr, Model model) {
         log.debug("Getting ingredient list for recipe id: " + idStr);
         model.addAttribute("recipe", recipeService.findCommandById(Long.parseLong(idStr)));
         return "recipe/ingredient/list";
     }
 
-    @GetMapping
-    @RequestMapping("/recipe/{recipeIdStr}/ingredient/{ingredientIdStr}/show")
+    @GetMapping("/recipe/{recipeIdStr}/ingredient/{ingredientIdStr}/show")
     public String showRecipeIngredient(@PathVariable String recipeIdStr, @PathVariable String ingredientIdStr, Model model) {
         model.addAttribute("ingredient",
                 ingredientService.findByRecipeIdAndIngredientId(Long.parseLong(recipeIdStr), Long.parseLong(ingredientIdStr)));
         return "recipe/ingredient/show";
     }
 
-    @GetMapping
-    @RequestMapping("/recipe/{recipeIdStr}/ingredient/{ingredientIdStr}/update")
+    @GetMapping("/recipe/{recipeIdStr}/ingredient/{ingredientIdStr}/update")
     public String updateRecipeIngredient(@PathVariable String recipeIdStr, @PathVariable String ingredientIdStr, Model model) {
         model.addAttribute("ingredient",
                 ingredientService.findByRecipeIdAndIngredientId(Long.parseLong(recipeIdStr), Long.parseLong(ingredientIdStr)));
@@ -49,8 +46,7 @@ public class IngredientController {
         return "recipe/ingredient/ingredientform";
     }
 
-    @PostMapping
-    @RequestMapping("recipe/{recipeIdStr}/ingredient")
+    @PostMapping("recipe/{recipeIdStr}/ingredient")
     public String saveOrUpdate(@PathVariable String recipeIdStr, @ModelAttribute IngredientCommand ingredientCommand) {
         ingredientCommand.setRecipeId(Long.parseLong(recipeIdStr));
         IngredientCommand savedIngredientCommand = ingredientService.saveIngredientCommand(ingredientCommand);
@@ -59,8 +55,7 @@ public class IngredientController {
         return "redirect:/recipe/" + savedIngredientCommand.getRecipeId() + "/ingredient/" + savedIngredientCommand.getId() + "/show";
     }
 
-    @GetMapping
-    @RequestMapping("recipe/{recipeIdStr}/ingredient/new")
+    @GetMapping("recipe/{recipeIdStr}/ingredient/new")
     public String newRecipeIngredient(@PathVariable String recipeIdStr, Model model) {
         RecipeCommand recipeCommand = recipeService.findCommandById(Long.parseLong(recipeIdStr));
         // todo raise exception if null
@@ -76,8 +71,7 @@ public class IngredientController {
         return "recipe/ingredient/ingredientform";
     }
 
-    @GetMapping
-    @RequestMapping("/recipe/{recipeIdStr}/ingredient/{ingredientIdStr}/delete")
+    @GetMapping("/recipe/{recipeIdStr}/ingredient/{ingredientIdStr}/delete")
     public String deleteIngredientFromRecipe(@PathVariable String recipeIdStr, @PathVariable String ingredientIdStr) {
         ingredientService.deleteById(Long.parseLong(recipeIdStr), Long.parseLong(ingredientIdStr));
         return "redirect:/recipe/" + recipeIdStr + "/ingredients";
